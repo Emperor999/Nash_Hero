@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
+import './App.css';
 
 export default function App() {
   const [heroes, setHeroes] = useState([]);
   const [id, setId] = useState('');
   const [heroName, setHeroName] = useState('');
   const [message, setMessage] = useState('');
+  const [details, setdetaiils] = useState('');
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -26,23 +28,31 @@ export default function App() {
     <div className="App">
       {heroes.map((hero, index) => (
         <div>
-          <button
-            key={index}
-            onClick={() => {
-              setId(hero.id);
-              setHeroName(hero.name);
-              setMessage(
-                (previousMes) =>
-                  previousMes + `HeroesComponent: Selected hero id=${hero.id}\n`
-              );
-            }}
-          >
-            {hero.id} {hero.name}
-          </button>
+          <ul className="heroes">
+            <li
+              className="li"
+              key={index}
+              onClick={() => {
+                setdetaiils(' details');
+                setId(hero.id);
+                setHeroName(hero.name);
+                setMessage(
+                  (previousMes) =>
+                    previousMes +
+                    `HeroesComponent: Selected hero id=${hero.id}\n`
+                );
+              }}
+            >
+              <span className="badge">{hero.id}</span> {hero.name}
+            </li>
+          </ul>
         </div>
       ))}
       <br />
-      <h3>{heroName.toUpperCase()} details</h3>
+      <h3>
+        {heroName.toUpperCase()}
+        {details}
+      </h3>
       <div>id : {id}</div>
       Hero Name : <input type="text" defaultValue={heroName} />
       <br />
